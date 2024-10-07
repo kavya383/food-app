@@ -17,8 +17,7 @@ const menus = {
       name: "Tiramisu",
       price: 6,
       img: "images/tiramisu.jpg",
-      description:
-        "Layered dessert made with coffee-soaked ladyfingers and mascarpone.",
+      description: "Layered dessert made with coffee-soaked ladyfingers and mascarpone.",
     },
   ],
   "Sushi Palace": [
@@ -83,7 +82,7 @@ const menus = {
   ],
 };
 
-// To store cart items
+// To store cart items in memory
 let cart = [];
 
 // Load menu for the selected restaurant
@@ -126,6 +125,5 @@ function addToCart(itemName, price) {
 
 // Redirect to Cart Page
 function goToCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
   window.location.href = "cart.html"; // Redirect to cart page
 }
