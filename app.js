@@ -82,6 +82,7 @@ const menus = {
   ],
 };
 
+// To store cart items in memory
 let cart = [];
 
 // Load menu for the selected restaurant
@@ -107,7 +108,6 @@ function loadMenu(restaurantName) {
         <p>${item.description}</p>
         <p>$${item.price}</p>
       </div>
-      <input type="number" id="quantity-${item.name}" value="1" min="1" style="width: 50px;"/>
       <button onclick="addToCart('${item.name}', ${item.price})" class="btn">ADD</button>
     `;
     menuItemsDiv.appendChild(itemDiv);
@@ -119,60 +119,11 @@ function loadMenu(restaurantName) {
 
 // Add item to the cart
 function addToCart(itemName, price) {
-  const quantityInput = document.getElementById(`quantity-${itemName}`);
-  const quantity = parseInt(quantityInput.value);
-  
-  const existingItemIndex = cart.findIndex(item => item.itemName === itemName);
-
-  if (existingItemIndex !== -1) {
-    // Update quantity if item already exists in the cart
-    cart[existingItemIndex].quantity += quantity;
-  } else {
-    // Add new item to the cart
-    cart.push({ itemName, price, quantity });
-  }
-
+  cart.push({ itemName, price });
   alert(`${itemName} has been added to the cart.`);
 }
 
 // Redirect to Cart Page
 function goToCart() {
-  displayCart();
-}
-
-// Display cart items and billing format
-function displayCart() {
-  const cartItemsDiv = document.getElementById("cart-items");
-  const totalAmountDiv = document.getElementById("total-amount");
-  cartItemsDiv.innerHTML = ""; // Clear previous items
-
-  let total = 0;
-
-  cart.forEach((item) => {
-    const itemDiv = document.createElement("div");
-    itemDiv.classList.add("billing-item");
-    itemDiv.innerHTML = `
-      <img src="images/${item.itemName.toLowerCase().replace(/ /g, "_")}.jpg" alt="${item.itemName}" class="billing-item-img">
-      <div>${item.itemName}</div>
-      <div>$${item.price}</div>
-      <div>Qty: ${item.quantity}</div>
-      <div>$${item.price * item.quantity}</div>
-    `;
-    cartItemsDiv.appendChild(itemDiv);
-    total += item.price * item.quantity;
-  });
-
-  totalAmountDiv.textContent = `Total: $${total}`;
-}
-
-// Checkout functionality
-function checkout() {
-  const name = prompt("Enter your name:");
-  const address = prompt("Enter your address:");
-  const phone = prompt("Enter your phone number:");
-  const paymentMethod = prompt("Enter payment method (Cash on Delivery/Online Payment):");
-
-  alert(`Checkout successful!\nName: ${name}\nAddress: ${address}\nPhone: ${phone}\nPayment: ${paymentMethod}`);
-  cart = []; // Clear cart after checkout
-  displayCart(); // Refresh cart display
+  window.location.href = "cart.html"; // Redirect to cart page
 }
