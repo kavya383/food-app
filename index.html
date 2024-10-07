@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Food Delivery - Restaurants</title>
+  </head>
+  <body>
+    <header>
+      <h1>Food Delivery</h1>
+    </header>
+
+    <!-- List of Restaurants -->
+    <section id="restaurant-list">
+      <h2>Select a Restaurant</h2>
+      <div class="restaurant-card" onclick="loadMenu('Italian Bistro')">
+        <img src="images/italian_bistro.jpg" alt="Italian Bistro" />
+        <h3>Italian Bistro</h3>
+        <p>Specialty: Italian Cuisine</p>
+        <button class="btn">Select Restaurant</button>
+      </div>
+      <div class="restaurant-card" onclick="loadMenu('Sushi Palace')">
+        <img src="images/sushi_palace.jpg" alt="Sushi Palace" />
+        <h3>Sushi Palace</h3>
+        <p>Specialty: Japanese Cuisine</p>
+        <button class="btn">Select Restaurant</button>
+      </div>
+      <div class="restaurant-card" onclick="loadMenu('Taco Haven')">
+        <img src="images/taco_haven.jpg" alt="Taco Haven" />
+        <h3>Taco Haven</h3>
+        <p>Specialty: Mexican Cuisine</p>
+        <button class="btn">Select Restaurant</button>
+      </div>
+    </section>
+
+    <!-- Menu Section (Hidden initially) -->
+    <section id="restaurant-menu" style="display: none">
+      <h2 id="restaurant-name">Menu</h2>
+      <div id="menu-items"></div>
+      <button class="btn" onclick="goToCart()">View Cart</button>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
