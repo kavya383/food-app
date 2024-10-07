@@ -54,8 +54,14 @@
                 </div>
             </div>
 
-            <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+            <h2>Delivery Charges</h2>
+            <div>
+                <label for="delivery-charge">Delivery Charge:</label>
+                <span id="delivery-charge">$5</span>
+            </div>
         </div>
+
+        <button class="btn" onclick="checkout()">Proceed to Checkout</button>
     </section>
 
     <script>
@@ -67,6 +73,7 @@
         ];
 
         const cartDiv = document.getElementById("cart-items");
+        const deliveryCharge = 5; // Delivery charge amount
         let total = 0;
 
         function updateCart() {
@@ -94,6 +101,7 @@
                 total += itemTotalPrice; // Add to total
             });
 
+            total += deliveryCharge; // Add delivery charge to total
             document.getElementById("total-amount").textContent = `Total: $${total}`;
         }
 
@@ -123,7 +131,14 @@
                 return;
             }
 
-            alert(`Checkout successful! \nTotal: $${total} \nName: ${name} \nAddress: ${address} \nPhone: ${phone} \nPayment Method: ${paymentMethod} \nPayment Number: ${paymentNumber}`);
+            // Prompt for rating after checkout
+            const rating = prompt("Please rate your experience (1-5):");
+            if (rating < 1 || rating > 5 || isNaN(rating)) {
+                alert("Please provide a valid rating.");
+            } else {
+                alert(`Checkout successful! \nTotal: $${total} \nName: ${name} \nAddress: ${address} \nPhone: ${phone} \nPayment Method: ${paymentMethod} \nPayment Number: ${paymentNumber} \nRating: ${rating}`);
+            }
+
             // Redirect to home page
             window.location.href = "index.html"; 
         }
