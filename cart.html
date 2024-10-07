@@ -45,22 +45,46 @@
     <script>
         // Mock cart items (you can replace this with your own logic to fetch items)
         let cartItems = [
-            { itemName: "Butter Chicken", price: 12 },
-            { itemName: "Biryani", price: 15 },
-            { itemName: "Samosa", price: 5 }
+            { itemName: "Butter Chicken", price: 12, quantity: 1 },
+            { itemName: "Biryani", price: 15, quantity: 1 },
+            { itemName: "Samosa", price: 5, quantity: 1 }
         ];
 
         const cartDiv = document.getElementById("cart-items");
         let total = 0;
 
-        cartItems.forEach((item) => {
-            const itemDiv = document.createElement("div");
-            itemDiv.textContent = `${item.itemName} - $${item.price}`;
-            cartDiv.appendChild(itemDiv);
-            total += item.price;
-        });
+        function updateCart() {
+            cartDiv.innerHTML = ""; // Clear previous items
+            total = 0; // Reset total
 
-        document.getElementById("total-amount").textContent = `Total: $${total}`;
+            cartItems.forEach((item) => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "cart-item";
+
+                const itemTotalPrice = item.price * item.quantity; // Calculate total price for the item
+                itemDiv.innerHTML = `
+                    <div>${item.itemName} - $${item.price} x 
+                        <button onclick="changeQuantity('${item.itemName}', -1)">-</button>
+                        <span id="${item.itemName}-quantity">${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.itemName}', 1)">+</button>
+                    </div>
+                    <div>Subtotal: $<span id="${item.itemName}-subtotal">${itemTotalPrice}</span></div>
+                `;
+                cartDiv.appendChild(itemDiv);
+                total += itemTotalPrice; // Add to total
+            });
+
+            document.getElementById("total-amount").textContent = `Total: $${total}`;
+        }
+
+        function changeQuantity(itemName, change) {
+            const item = cartItems.find(i => i.itemName === itemName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity < 1) item.quantity = 1; // Minimum quantity of 1
+                updateCart(); // Refresh cart display
+            }
+        }
 
         function checkout() {
             const address = document.getElementById("address").value;
@@ -76,6 +100,9 @@
             // Redirect to home page
             window.location.href = "index.html"; 
         }
+
+        // Initial load
+        updateCart();
     </script>
 
     <style>
@@ -145,6 +172,13 @@
         #cart-items {
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
         #total-amount {
