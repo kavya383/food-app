@@ -130,3 +130,37 @@ body::before {
 .btn:hover {
   background-color: #45a049;
 }
+section {
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+label {
+    display: block; /* Stack labels */
+    margin-bottom: 5px;
+}
+
