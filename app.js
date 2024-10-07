@@ -17,7 +17,8 @@ const menus = {
       name: "Tiramisu",
       price: 6,
       img: "images/tiramisu.jpg",
-      description: "Layered dessert made with coffee-soaked ladyfingers and mascarpone.",
+      description:
+        "Layered dessert made with coffee-soaked ladyfingers and mascarpone.",
     },
   ],
   "Sushi Palace": [
@@ -82,7 +83,7 @@ const menus = {
   ],
 };
 
-// To store cart items in memory
+// To store cart items
 let cart = [];
 
 // Load menu for the selected restaurant
@@ -108,7 +109,7 @@ function loadMenu(restaurantName) {
         <p>${item.description}</p>
         <p>$${item.price}</p>
       </div>
-      <button onclick="addToCart('${item.name}', ${item.price})" class="btn">ADD</button>
+      <button onclick="addToCart('${item.name}', ${item.price}, '${item.img}')" class="btn">ADD</button>
     `;
     menuItemsDiv.appendChild(itemDiv);
   });
@@ -118,14 +119,19 @@ function loadMenu(restaurantName) {
 }
 
 // Add item to the cart
-function addToCart(itemName, price) {
-  cart.push({ itemName, price });
+function addToCart(itemName, price, img) {
+  const existingItem = cart.find(item => item.itemName === itemName);
+
+  if (existingItem) {
+    existingItem.quantity += 1; // Increase quantity if item already exists
+  } else {
+    cart.push({ itemName, price, quantity: 1, img }); // Add new item
+  }
+
   alert(`${itemName} has been added to the cart.`);
 }
 
 // Redirect to Cart Page
 function goToCart() {
-  const cartJson = encodeURIComponent(JSON.stringify(cart)); // Convert cart to JSON and encode it
-  window.location.href = `cart.html?cart=${cartJson}`; // Pass cart data in the URL
+  window.location.href = "cart.html"; // Redirect to cart page
 }
-
