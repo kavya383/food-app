@@ -18,11 +18,17 @@
     </section>
 
     <script>
-      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      // Dummy cart data for demonstration purposes
+      const cart = [
+        { itemName: "Butter Chicken", price: 12 },
+        { itemName: "Biryani", price: 15 },
+        { itemName: "Samosa", price: 5 },
+      ]; // Replace this with your actual cart data from the main app
+
       const cartDiv = document.getElementById("cart-items");
       let total = 0;
 
-      cartItems.forEach((item) => {
+      cart.forEach((item) => {
         const itemDiv = document.createElement("div");
         itemDiv.textContent = `${item.itemName} - $${item.price}`;
         cartDiv.appendChild(itemDiv);
@@ -33,7 +39,6 @@
 
       function checkout() {
         alert("Checkout successful!");
-        localStorage.removeItem("cart");
         window.location.href = "index.html"; // Redirect to home page
       }
     </script>
