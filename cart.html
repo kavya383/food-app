@@ -18,17 +18,20 @@
     </section>
 
     <script>
-      // Dummy cart data for demonstration purposes
-      const cart = [
-        { itemName: "Butter Chicken", price: 12 },
-        { itemName: "Biryani", price: 15 },
-        { itemName: "Samosa", price: 5 },
-      ]; // Replace this with your actual cart data from the main app
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
 
+      // Parse cart items from URL
+      const cartJson = getUrlParameter('cart');
+      const cartItems = cartJson ? JSON.parse(decodeURIComponent(cartJson)) : [];
+      
       const cartDiv = document.getElementById("cart-items");
       let total = 0;
 
-      cart.forEach((item) => {
+      cartItems.forEach((item) => {
         const itemDiv = document.createElement("div");
         itemDiv.textContent = `${item.itemName} - $${item.price}`;
         cartDiv.appendChild(itemDiv);
