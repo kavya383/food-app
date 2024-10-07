@@ -3,11 +3,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  position: relative; /* Position for the pseudo-element */
+  position: relative;
 }
 
 header {
-  background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent header */
+  background-color: rgba(51, 51, 51, 0.8);
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -19,17 +19,17 @@ h1 {
 
 /* Background Image */
 body::before {
-  content: ""; /* Required for pseudo-element */
-  position: fixed; /* Fixed positioning for background */
+  content: "";
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("images/background.jpg"); /* Background image */
+  background-image: url("images/background.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(8px); /* Blur effect */
-  z-index: -1; /* Ensure it stays behind other elements */
+  filter: blur(8px);
+  z-index: -1;
 }
 
 /* Restaurant List Styling */
@@ -38,8 +38,8 @@ body::before {
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 20px;
-  position: relative; /* Ensures restaurant cards stack above the blurred background */
-  z-index: 1; /* Ensure the content is on top */
+  position: relative;
+  z-index: 1;
 }
 
 .restaurant-card {
@@ -112,10 +112,29 @@ body::before {
 /* Cart Page Styling */
 #cart-items {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.billing-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.billing-item-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 #total-amount {
   margin-top: 20px;
+  font-weight: bold;
 }
 
 .btn {
@@ -130,37 +149,3 @@ body::before {
 .btn:hover {
   background-color: #45a049;
 }
-section {
-    padding: 20px;
-}
-
-h2 {
-    margin-top: 20px;
-}
-
-input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #45a049;
-}
-
-label {
-    display: block; /* Stack labels */
-    margin-bottom: 5px;
-}
-
