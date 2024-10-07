@@ -125,5 +125,7 @@ function addToCart(itemName, price) {
 
 // Redirect to Cart Page
 function goToCart() {
-  window.location.href = "cart.html"; // Redirect to cart page
+  const cartJson = encodeURIComponent(JSON.stringify(cart)); // Convert cart to JSON and encode it
+  window.location.href = `cart.html?cart=${cartJson}`; // Pass cart data in the URL
 }
+
