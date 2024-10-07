@@ -45,9 +45,9 @@
     <script>
         // Mock cart items (you can replace this with your own logic to fetch items)
         let cartItems = [
-            { itemName: "Butter Chicken", price: 12, quantity: 1 },
-            { itemName: "Biryani", price: 15, quantity: 1 },
-            { itemName: "Samosa", price: 5, quantity: 1 }
+            { itemName: "Butter Chicken", price: 12, quantity: 1, img: "images/butter_chicken.jpg" },
+            { itemName: "Biryani", price: 15, quantity: 1, img: "images/biryani.jpg" },
+            { itemName: "Samosa", price: 5, quantity: 1, img: "images/samosa.jpg" }
         ];
 
         const cartDiv = document.getElementById("cart-items");
@@ -63,12 +63,15 @@
 
                 const itemTotalPrice = item.price * item.quantity; // Calculate total price for the item
                 itemDiv.innerHTML = `
-                    <div>${item.itemName} - $${item.price} x 
-                        <button onclick="changeQuantity('${item.itemName}', -1)">-</button>
-                        <span id="${item.itemName}-quantity">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.itemName}', 1)">+</button>
+                    <div class="item-details">
+                        <img src="${item.img}" alt="${item.itemName}" class="item-image">
+                        <div>${item.itemName} - $${item.price} x 
+                            <button onclick="changeQuantity('${item.itemName}', -1)">-</button>
+                            <span id="${item.itemName}-quantity">${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.itemName}', 1)">+</button>
+                        </div>
+                        <div>Subtotal: $<span id="${item.itemName}-subtotal">${itemTotalPrice}</span></div>
                     </div>
-                    <div>Subtotal: $<span id="${item.itemName}-subtotal">${itemTotalPrice}</span></div>
                 `;
                 cartDiv.appendChild(itemDiv);
                 total += itemTotalPrice; // Add to total
@@ -179,6 +182,20 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .item-image {
+            width: 50px; /* Small size */
+            height: 50px; /* Small size */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
         }
 
         #total-amount {
