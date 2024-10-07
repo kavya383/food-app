@@ -43,8 +43,13 @@
     </section>
 
     <script>
-        // Fetch cart items directly from the global scope
-        const cartItems = cart; // Use the cart array from the main script
+        // Mock cart items (you can replace this with your own logic to fetch items)
+        let cartItems = [
+            { itemName: "Butter Chicken", price: 12, quantity: 1, img: "images/butter_chicken.jpg" },
+            { itemName: "Biryani", price: 15, quantity: 1, img: "images/biryani.jpg" },
+            { itemName: "Samosa", price: 5, quantity: 1, img: "images/samosa.jpg" }
+        ];
+
         const cartDiv = document.getElementById("cart-items");
         let total = 0;
 
