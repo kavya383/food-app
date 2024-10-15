@@ -62,6 +62,9 @@
         </div>
 
         <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+
+        <!-- New Section for Checkout Message -->
+        <div id="checkout-message" class="checkout-message" style="display: none;"></div>
     </section>
 
     <script>
@@ -120,6 +123,11 @@
         }
 
         function checkout() {
+            if (cartItems.length === 0) {
+                alert("Your cart is empty. Please add items before proceeding to checkout.");
+                return;
+            }
+
             const name = document.getElementById("name").value;
             const address = document.getElementById("address").value;
             const phone = document.getElementById("phone").value;
@@ -131,116 +139,40 @@
                 return;
             }
 
+            // Create a summary of ordered items
+            let itemsOrdered = cartItems.map(item => `${item.itemName} - $${item.price} (Qty: ${item.quantity})`).join("<br>");
+            let itemsTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let finalTotal = itemsTotal + deliveryCharge; // Add delivery charge
+
             // Prompt for rating after checkout
             const rating = prompt("Please rate your experience (1-5):");
             if (rating < 1 || rating > 5 || isNaN(rating)) {
                 alert("Please provide a valid rating.");
             } else {
-                alert(`Checkout successful! \nTotal: $${total} \nName: ${name} \nAddress: ${address} \nPhone: ${phone} \nPayment Method: ${paymentMethod} \nPayment Number: ${paymentNumber} \nRating: ${rating}`);
+                // Display the checkout summary in the new section
+                const checkoutMessageDiv = document.getElementById("checkout-message");
+                checkoutMessageDiv.style.display = "block";
+                checkoutMessageDiv.innerHTML = `
+                    <h2>Checkout Successful!</h2>
+                    <p><strong>Ordered Items:</strong><br>${itemsOrdered}</p>
+                    <p><strong>Total:</strong> $${finalTotal}</p>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Address:</strong> ${address}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+                    <p><strong>Payment Number:</strong> ${paymentNumber}</p>
+                    <p><strong>Rating:</strong> ${rating}</p>
+                `;
             }
 
-            // Redirect to home page
-            window.location.href = "index.html"; 
+            // Clear the cart
+            cartItems = [];
+            updateCart(); // Reset cart display
+            // Optionally hide the billing info
+            document.querySelector(".billing-info").style.display = "none";
         }
 
-        // Initial load
-        updateCart();
+        updateCart(); // Initial cart display
     </script>
-
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center content */
-        }
-
-        header {
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent header */
-            color: #fff;
-            text-align: center;
-            width: 100%;
-            padding: 10px;
-        }
-
-        section {
-            width: 100%;
-            max-width: 600px; /* Limit max width */
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .billing-info {
-            margin-top: 20px;
-        }
-
-        h2 {
-            margin-top: 20px;
-        }
-
-        input[type="text"], select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .btn {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-
-        label {
-            display: block; /* Stack labels */
-            margin-bottom: 5px;
-        }
-
-        #cart-items {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .item-details {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .item-image {
-            width: 50px; /* Small size */
-            height: 50px; /* Small size */
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        #total-amount {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
 </body>
 </html>
